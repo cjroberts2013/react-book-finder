@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Search from "./Components/Search"
 import Books from "./Components/Books"
+import { fetchBooks } from "./Components/fetch-books"
 
 class App extends Component {
   constructor(props) {
