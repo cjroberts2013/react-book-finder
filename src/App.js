@@ -1,26 +1,62 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Search from "./Components/Search"
+import Books from "./Components/Books"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      query: "",
+      loading: false,
+      found: []
+    };
+    this.counter = 0;
+  }
+  handleChange(e) {
+    this.setState({
+      query: e.target.value
+    })
+  }
+  handleClick() {
+    const { query } = this.state;
+    if (!query) return;
+    this.setState({
+      loading: true
+    });
+    fetchBooks(query)
+      .then((found) => {
+        this.setState({ found, loading: false });
+      })
+  }
+  handleClear() {
+    this.setState({
+      query: '',
+      found: []
+    })
+  }
+
+  render() {
+    return (
+      <div id="wrapper">
+        <header>
+          <h1>Book Locator</h1>
+        </header>
+        <div id="search">
+          <Search
+            onChange={(e) => this.handleChange}
+            query={this.state.query}
+            onClick={() => this.handleClick}
+            onClear={() => this.handleClear}
+          />
+        </div>
+        <div id="books">
+          <Books volumes={this.state.found} loading={this.state.loading} />
+        </div>
+      </div>
+    );
+  }
+
 }
 
 export default App;
