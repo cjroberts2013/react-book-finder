@@ -4,16 +4,6 @@ class Search extends Component {
 	render() {
 		return (
 			<div id="search-block">
-				<div
-					className="clear"
-					style={{
-						display: this.props.query.length > 0 ? "block" : "none"
-					}}
-					onClick={this.props.onClear}
-				>
-					<div className="clear__left"></div>
-					<div className="clear__right"></div>
-				</div>
 				<input
 					type="text"
 					value={this.props.query}
@@ -28,6 +18,15 @@ class Search extends Component {
 				<button id="search-btn" onClick={this.props.onClick}>
 					Search
 				</button>
+				<div
+					className="clear"
+					style={{
+						display: this.props.query.length > 0 ? "block" : "none"
+					}}
+					onClick={this.props.onClear}
+				>
+					<button id="clear-btn">Clear</button>
+				</div>
 			</div>
 		);
 	}
